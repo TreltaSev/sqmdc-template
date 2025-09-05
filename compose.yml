@@ -1,0 +1,86 @@
+services:
+  backend:
+    # Backend Stuff
+    container_name: backend
+    build:
+      context: packages
+      dockerfile: ./backend/Dockerfile
+
+    depends_on:
+      - router
+      - database
+
+    ports:
+      - "4000:4000"
+
+    # Network Bridge
+    networks:
+      - docker-network
+
+    volumes:
+      - ./config.yml:/config/config.yml:ro
+      - backend-logs:/logs:rw
+
+  frontend:
+    # Frontend Stuff
+    container_name: frontend
+    build:
+      context: packages/frontend
+      dockerfile: ./Dockerfile
+
+    depends_on:
+      - router
+      - backend
+
+    ports:
+      - "3000:3000"
+
+    # Network Bridge
+    networks:
+      - docker-network
+
+  router:
+    # Router Stuff (caddy)
+    container_name: router
+    build:
+      context: packages/router
+      dockerfile: ./Dockerfile
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    # Network Bridge
+    networks:
+      - docker-network
+
+    volumes:
+      - ./certs:/certs:ro
+      - caddy_data:/data
+  
+  database:
+    image: mongo
+    container_name: database
+    ports:
+      - "29345:29345"
+    volumes:
+      - "mongodb_data:/data/db"
+      - ./packages/database/mongo.conf:/etc/mongo/mongo.conf:rw
+      - ./packages/database/init.js:/docker-entrypoint-initdb.d/init.js:ro
+    networks:
+      - docker-network
+    command:
+      - "--logpath"
+      - "/var/log/mongodb/mongod.log"
+      - "--config"
+      - "/etc/mongo/mongo.conf"
+
+networks:
+  docker-network:
+    driver: bridge
+
+volumes:
+  backend-logs:
+  mongodb_data:
+    driver: local
+  caddy_data:

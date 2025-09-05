@@ -1,0 +1,13 @@
+services:
+  tools:
+    container_name: tools
+    build:
+      context: packages
+      dockerfile: ./tools/Dockerfile
+    
+    volumes:
+      # Tools Source
+      - ./packages/tools/src:/tools/src:ro
+
+      # Logs
+      - backend-logs:/logs:rw      

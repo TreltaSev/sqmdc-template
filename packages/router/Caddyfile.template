@@ -1,0 +1,12 @@
+
+# Backend
+api.{host} {
+    reverse_proxy backend:4000
+    tls /certs/api.{host}.pem /certs/api.{host}-key.pem
+}
+
+# Frontend
+{host} {
+    reverse_proxy frontend:3000
+    tls /certs/{host}.pem /certs/{host}-key.pem
+}

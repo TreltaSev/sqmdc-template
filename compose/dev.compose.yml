@@ -1,0 +1,24 @@
+services:
+  frontend:
+    # Frontend Stuff
+    build:
+      context: packages
+      dockerfile: ./frontend/dev.Dockerfile
+
+    volumes:
+      - ./packages/frontend:/frontend
+
+  backend:
+    # Backend Stuff
+    build:
+      context: packages
+      dockerfile: ./backend/dev.Dockerfile
+
+    volumes:
+      - ./packages/backend/src:/backend/src
+      - ./config.yml:/backend/config.yml
+    
+
+networks:
+  docker-network:
+    driver: bridge
