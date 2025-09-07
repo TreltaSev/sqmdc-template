@@ -49,15 +49,14 @@ class Primitive(ABC):
         if path is None:
             raise FileNotFoundError("No path specified")
 
-        _config_root: Path = Path("/config")
-        _config_file: Path = _config_root / path
+        _config_file: Path = Path(path)
 
         while not _config_file.exists():
 
             if not lazy:
                 raise FileNotFoundError(f"Config File Not Found: {_config_file.resolve()}")
 
-            _config_file.write_text("", encoding="utf-8")
+            _config_file.write_text(default, encoding="utf-8")
 
             break
 
@@ -216,8 +215,8 @@ class Yaml(Primitive):
     Attempts to locate and parse a .yaml file
     """
 
-    def __init__(self, path: str = "config.yml"):
-        super().__init__(path)
+    def __init__(self, path: str = "/config/config.yml", *args, **kwargs):
+        super().__init__(path, *args, **kwargs)
 
     def parse(self, lazy: bool = False, default: Optional[Any] = _SENTINEL) -> dict:
         contents: str = self.read(lazy, "")

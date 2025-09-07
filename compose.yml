@@ -56,7 +56,7 @@ services:
 
     volumes:
       - ./certs:/certs:ro
-      - caddy_data:/data
+      - caddy_data:/data:rw
   
   database:
     image: mongo
@@ -84,3 +84,8 @@ volumes:
   mongodb_data:
     driver: local
   caddy_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./packages/router/data

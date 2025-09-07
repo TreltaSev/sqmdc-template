@@ -1,5 +1,5 @@
-// Switch to the "fbla" database
-db = db.getSiblingDB("fbla");
+// Switch to the "{auth_db}" database
+db = db.getSiblingDB("{auth_db}");
 
 // Create a user with readWrite access to that database
 db.createUser({
@@ -8,7 +8,7 @@ db.createUser({
   roles: [
     {
       role: "readWrite",
-      db: "fbla"
+      db: "{auth_db}"
     }
   ]
 });

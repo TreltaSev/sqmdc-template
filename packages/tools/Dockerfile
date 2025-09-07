@@ -32,4 +32,9 @@ RUN /opt/venv/bin/pip install -e /deps/backend
 COPY tools/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+## Add user
+RUN adduser -D -u 1000 appuser
+RUN apk add --no-cache openssh-client
+USER appuser
+
 ENTRYPOINT [ "/entrypoint.sh" ]

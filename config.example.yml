@@ -18,3 +18,21 @@ frontend:
 database:
   username: "mongo_user"
   password: "mongo_password"
+  auth_db: "db_name"
+
+router:
+  extra_subdomains: # Extra subdomains to be added to the router's cert generation
+    - api
+
+  config_file: "packages/router/Caddyfile" # Caddy config file, passed through the docker container
+  template_file: "packages/router/Caddyfile.template" # Regular caddy template file
+  dev_template_file: "packages/router/Caddyfile.dev.template" # Template file used if dev flag is true
+
+# Tool specific configurations
+tool:
+
+  # Comment used in the SSH generation
+  ssh_identity: "project_tool@sqmdc-template"
+
+  # SSH file output, relative to project root
+  ssh_file_out: "packages/tools/ssh/id_ed25519"

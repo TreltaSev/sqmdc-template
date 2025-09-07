@@ -8,6 +8,29 @@ services:
     volumes:
       # Tools Source
       - ./packages/tools/src:/tools/src:ro
+      
+      # Project Discovery
+      - project:/project:rw
+
+      # host home discovery
+      - host_home:/host_home:rw
 
       # Logs
-      - backend-logs:/logs:rw      
+      - backend-logs:/logs:rw     
+
+    extra_hosts:
+      - host.docker.internal:host-gateway 
+
+volumes:
+  project:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./
+  host_home:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ~/

@@ -7,7 +7,7 @@ from types import ModuleType
 from typing import Any, Optional, Self
 from unittest import runner
 
-from click import Context
+from click import Context, Group
 from utils.console import console
 
 
@@ -15,7 +15,7 @@ class Tool:
     
     root = Path(__file__).parent
     
-    runner: Optional[Callable] = None
+    runner: Optional[Group] = None
     module: Optional[ModuleType] = None
     spec: Optional[ModuleSpec] = None
     name: Optional[str] = None
@@ -79,7 +79,7 @@ class Tool:
         self.name = name
            
 
-    def run(self, ctx: Optional[Context] = None, *args, **kwargs) -> None:
+    def run(self, *args, **kwargs) -> None:
         """
         Runs a specified tool
         
@@ -89,5 +89,4 @@ class Tool:
         if not self.runner:
             raise ChildProcessError("No runner for this tool")
         
-        
-        return self.runner(args=list(args), standalone_mode=False, prog_name=f"just tool {self.name}")
+        return self.runner(args=list(args), standalone_mode=False, prog_name=f"just tool {self.name}", obj=kwargs.get("obj", None))
