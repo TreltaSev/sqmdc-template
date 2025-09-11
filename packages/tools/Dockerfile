@@ -2,6 +2,7 @@ FROM alpine:3.19
 
 ## Install Packages
 RUN apk add --update --no-cache python3 git libpq-dev gcc py3-pip python3-dev g++ py3-virtualenv bash curl
+RUN apk add --no-cache openssh-client
 
 # Bun
 RUN curl -fsSL https://bun.com/install | bash
@@ -34,10 +35,10 @@ RUN chmod +x /entrypoint.sh
 
 ## Add user
 RUN adduser -D -u 1000 appuser
-RUN apk add --no-cache openssh-client
+
+## chown folders
+RUN mkdir /logs /project
+RUN chown -R appuser:appuser /tools /logs /project /tools 
+
 USER appuser
-
-RUN mkdir /logs
-RUN chmod 777 /logs
-
 ENTRYPOINT [ "/entrypoint.sh" ]

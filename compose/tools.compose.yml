@@ -16,7 +16,7 @@ services:
       - host_home:/host_home:rw
 
       # Logs
-      - ./logs:/logs:rw     
+      - backend-logs:/logs:rw     
 
     extra_hosts:
       - host.docker.internal:host-gateway 
