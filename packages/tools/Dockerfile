@@ -37,4 +37,7 @@ RUN adduser -D -u 1000 appuser
 RUN apk add --no-cache openssh-client
 USER appuser
 
+RUN mkdir /logs
+RUN chmod 777 /logs
+
 ENTRYPOINT [ "/entrypoint.sh" ]

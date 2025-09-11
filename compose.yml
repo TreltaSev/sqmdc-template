@@ -19,7 +19,7 @@ services:
 
     volumes:
       - ./config.yml:/config/config.yml:ro
-      - backend-logs:/logs:rw
+      - ./logs:/logs:rw
 
   frontend:
     # Frontend Stuff
@@ -80,7 +80,6 @@ networks:
     driver: bridge
 
 volumes:
-  backend-logs:
   mongodb_data:
     driver: local
   caddy_data:
