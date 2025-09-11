@@ -31,7 +31,8 @@ run SERVICE="" *PARAMETERS:
 # Prune all inactive docker files
 [working-directory: './']
 prune:
-    docker system prune -f && docker volume prune -f
+    docker system prune -f
+    docker volume prune -f
 
 # Tools entrypoint
 [working-directory: './']
