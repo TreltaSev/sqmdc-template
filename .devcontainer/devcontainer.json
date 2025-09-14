@@ -4,5 +4,9 @@
   },
   "features": {},
   "remoteUser": "vscode",
-  "postStartCommand": "sudo /usr/sbin/sshd"
+  "postStartCommand": "bash -lc 'G=$(stat -c %g /var/run/docker.sock); if getent group docker >/dev/null; then sudo groupmod -o -g $G docker; else sudo groupadd -g $G docker; fi; sudo usermod -aG docker $USER || true' && sudo /usr/sbin/sshd",
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    // "source=/run/docker.sock,target=/run/docker.sock,type=bind"
+  ],
 }

@@ -15,10 +15,22 @@ RUN useradd -m -s /bin/bash -u 1000 -U vscode
 RUN usermod -aG wheel vscode
 RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/wheel
 
+
+ARG USER=vscode
+ARG UID=1000
+ARG GID=1000
+ARG DOCKER_GID=970  
+RUN groupadd -g ${GID} ${USER} || true \
+ && useradd -m -u ${UID} -g ${GID} -s /bin/bash ${USER} || true \
+ && (getent group docker >/dev/null && groupmod -g ${DOCKER_GID} docker || groupadd -g ${DOCKER_GID} docker) \
+ && usermod -aG docker ${USER}
+
+
 # === POST SETUP ===
 # Switch to vscode user
 USER vscode
 RUN curl -fsSL https://bun.com/install | bash
+RUN sudo pacman -S --noconfirm docker docker-compose iptables shadow
 
 # Setup ssh
 RUN sudo ssh-keygen -A
