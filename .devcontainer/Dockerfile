@@ -4,6 +4,8 @@ FROM archlinux:multilib-devel
 # Update database files for 'core' and 'extra'
 RUN pacman -Sy
 COPY .bashrc /.bashrc
+# Install most packages
+RUN pacman -S --noconfirm git unzip bun openssh
 
 # === USER SETUP ===
 # Create vscode user
@@ -16,7 +18,5 @@ RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/wheel
 # Copy init.sh file over
 COPY init.sh /home/vscode/init.sh
 RUN chmod o+rwx /home/vscode/init.sh
-# Use vscode user
-USER vscode
 # Run init script
 RUN /home/vscode/init.sh
