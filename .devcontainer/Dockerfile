@@ -15,7 +15,7 @@ RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/wheel
 # === POST SETUP ===
 # Copy init.sh file over
 COPY init.sh /init.sh
-RUN chmod +x /init.sh
+RUN chmod o+rwx /init.sh
 # Use vscode user
 USER vscode
 # Run init script
