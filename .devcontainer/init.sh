@@ -8,7 +8,7 @@ sudo sh /tmp/scripts/get-docker.sh
 npm i -g bun
 
 # Install Justfile
-bun i -g rust-just
+npm i -g rust-just
 
 # Make a file so we know we're not crazy
 touch ./a.txt
