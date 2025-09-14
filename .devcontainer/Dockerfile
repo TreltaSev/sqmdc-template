@@ -11,12 +11,12 @@ RUN useradd -m -s /bin/bash -u 1000 -U vscode
 # Make vscode user sudo
 RUN usermod -aG wheel vscode
 RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/wheel
-# Use vscode user
-USER vscode
 
 # === POST SETUP ===
 # Copy init.sh file over
 COPY init.sh /init.sh
 RUN chmod +x /init.sh
+# Use vscode user
+USER vscode
 # Run init script
 RUN /init.sh
