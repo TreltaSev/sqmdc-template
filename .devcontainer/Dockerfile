@@ -1,9 +1,13 @@
-# Use basic node image
-FROM mcr.microsoft.com/devcontainers/javascript-node
+FROM archlinux:multilib-devel
 
-# Make sure everything is up to date
-RUN apt-get update
+# Update database files for 'core' and 'extra'
+RUN pacman -Sy
 
-# Run initialize script
-COPY ./init.sh /tmp/scripts/init.sh
-RUN bash /tmp/scripts/init.sh
+# Copy bashrc file over to image
+COPY .bashrc /.bashrc
+
+# Copy init.sh file over
+COPY init.sh /init.sh
+RUN chmod +x /init.sh
+
+RUN /init.sh
