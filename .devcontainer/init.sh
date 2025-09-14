@@ -11,8 +11,3 @@ source /.bashrc
 
 # copy bashrc file over
 cp /.bashrc /home/vscode/.bashrc
-
-# === PACKAGE INSTALLATION ===
-
-# # just
-# bun i -g rust-just

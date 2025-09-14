@@ -3,5 +3,6 @@
     "dockerfile": "Dockerfile"
   },
   "features": {},
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "postStartCommand": "sudo /usr/sbin/sshd"
 }

@@ -4,8 +4,9 @@ FROM archlinux:multilib-devel
 # Update database files for 'core' and 'extra'
 RUN pacman -Sy
 COPY .bashrc /.bashrc
-# Install most packages
-RUN pacman -S --noconfirm git unzip bun openssh
+COPY sshd_config /etc/ssh/sshd_config
+RUN pacman -S --noconfirm --needed git base-devel nodejs openssh unzip
+RUN pacman -S --noconfirm unzip
 
 # === USER SETUP ===
 # Create vscode user
@@ -15,6 +16,17 @@ RUN usermod -aG wheel vscode
 RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/wheel
 
 # === POST SETUP ===
+# Switch to vscode user
+USER vscode
+RUN curl -fsSL https://bun.com/install | bash
+
+# Setup ssh
+RUN sudo ssh-keygen -A
+
+RUN source /.bashrc
+RUN ~/.bun/bin/bun i -g rust-just
+# Switch back to root
+USER root
 # Copy init.sh file over
 COPY init.sh /home/vscode/init.sh
 RUN chmod o+rwx /home/vscode/init.sh
