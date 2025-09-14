@@ -14,6 +14,9 @@ cp /.bashrc /home/vscode/.bashrc
 
 # === PACKAGE INSTALLATION ===
 
+# git
+pacman -S --noconfirm git
+
 # bun
 pacman -S --noconfirm unzip
 curl -fsSL https://bun.com/install | bash
