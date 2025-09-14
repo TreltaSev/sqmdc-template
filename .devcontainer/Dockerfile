@@ -5,5 +5,5 @@ FROM mcr.microsoft.com/devcontainers/javascript-node
 RUN apt-get update
 
 # Run initialize script
-COPY ./.devcontainer/init.sh /tmp/scripts/init.sh
+COPY ./init.sh /tmp/scripts/init.sh
 RUN bash /tmp/scripts/init.sh
