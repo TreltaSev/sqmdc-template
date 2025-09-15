@@ -10,4 +10,4 @@ source /.bashrc
 # usermod -aG docker vscode
 
 # copy bashrc file over
-cp /.bashrc /home/vscode/.bashrc
+# cp /.bashrc /home/vscode/.bashrc
