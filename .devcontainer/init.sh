@@ -1,3 +1,13 @@
 #!/bin/bash
 
-echo "Hello there from init.sh"
+# Ensure bashrc
+source /.bashrc
+
+# === USER SETUP ===
+
+# # Docker user
+# groupadd -g 998 docker || true
+# usermod -aG docker vscode
+
+# copy bashrc file over
+# cp /.bashrc /home/vscode/.bashrc

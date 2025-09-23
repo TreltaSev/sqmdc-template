@@ -9,6 +9,10 @@ from utils.console import console
 def ensure_ssh(ctx: ctx.Context):
     """Ensure ssh key files exist"""
     
+    # If its a codespace, stop
+    if ctx.obj.is_codespace:
+        return
+    
     config = ctx.obj.config
     
     ssh_identity = config.get("tool.ssh_identity", None)

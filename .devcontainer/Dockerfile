@@ -1,9 +1,3 @@
-# Use basic node image
-FROM mcr.microsoft.com/devcontainers/javascript-node
+FROM mcr.microsoft.com/devcontainers/typescript-node
 
-# Make sure everything is up to date
-RUN apt-get update
-
-# Run initialize script
-COPY ./init.sh /tmp/scripts/init.sh
-RUN bash /tmp/scripts/init.sh
+COPY .bashrc /home/node/.bashrc
