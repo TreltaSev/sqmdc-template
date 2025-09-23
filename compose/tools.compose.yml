@@ -16,7 +16,9 @@ services:
       - host_home:/host_home:rw
 
       # Logs
-      - backend-logs:/logs:rw     
+      - backend-logs:/logs:rw
+
+      - root_folder:/root_folder:r
 
     extra_hosts:
       - host.docker.internal:host-gateway 
@@ -34,3 +36,9 @@ volumes:
       type: none
       o: bind
       device: ~/
+  root_folder:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /

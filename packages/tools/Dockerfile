@@ -9,6 +9,11 @@ RUN curl -fsSL https://bun.com/install | bash
 ENV BUN_INSTALL="/root/.bun"
 ENV PATH="$BUN_INSTALL/bin:$PATH"
 
+# mkcert
+RUN curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
+RUN chmod +x mkcert-v*-linux-amd64
+RUN cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
+
 RUN bun i -g prettier
 
 WORKDIR /tools
@@ -38,7 +43,7 @@ RUN adduser -D -u 1000 appuser
 
 ## chown folders
 RUN mkdir /logs /project
-RUN chown -R appuser:appuser /tools /logs /project /tools 
+RUN chown -R appuser:appuser /tools /logs /project /tools
 
 USER appuser
 ENTRYPOINT [ "/entrypoint.sh" ]

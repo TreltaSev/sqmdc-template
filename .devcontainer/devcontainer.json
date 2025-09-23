@@ -6,5 +6,31 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/shyim/devcontainers-features/bun:0": {}
   },
-  "remoteUser": "vscode",
+  "forwardPorts": [80, 443, 3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "silent",
+      "requireLocalPort": true
+    },
+    "4000": {
+      "label": "Backend",
+      "onAutoForward": "silent",
+      "requireLocalPort": true
+    },
+    "443": {
+      "label": "Frontend Secure",
+      "onAutoForward": "openBrowserOnce",
+      "elevateIfNeeded": true,
+      "requireLocalPort": true
+    },
+    "80": {
+      "label": "Frontend Unsecure",
+      "onAutoForward": "silent",
+      "elevateIfNeeded": true,
+      "requireLocalPort": true
+    }
+  },
+  "postCreateCommand": "bun i -g rust-just",
+  "appPort": [80, 443, 3000]
 }
